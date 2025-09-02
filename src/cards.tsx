@@ -37,6 +37,7 @@ export default function CarouselDemo() {
 
     setMov(db);
     setMov(db.filter(p => (p.title == name)))
+    setMov(db.filter(p => (p.rate >= rate)))
 
   }
 
