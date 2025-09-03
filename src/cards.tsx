@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
+import slugify from "slugify"
 import {
   Carousel,
   CarouselContent,
@@ -8,6 +9,7 @@ import {
 } from "@/components/ui/carousel"
 import { useState } from "react"
 import { db } from "./data/db"
+import { Link } from "react-router-dom"
 
 export default function CarouselDemo() {
   const [name, setName] = useState<string>("lord of the rings");
@@ -27,7 +29,9 @@ export default function CarouselDemo() {
               <div className="p-1">
                 <Card>
                   <CardContent className="flex flex-col items-center justify-center p-4">
-                    <img className="max-h-64 object-contain" src={p.url} alt={p.title} />
+                    <Link to={`/${ slugify(p.title)}`}>
+                      <img className="max-h-64 object-contain" src={p.url} alt={p.title} />
+                    </Link>
                   </CardContent>
                 </Card>
               </div>
