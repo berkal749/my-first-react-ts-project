@@ -1,4 +1,3 @@
-import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import {
   Carousel,
@@ -8,63 +7,22 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-
-
-const db = [
-  {
-    url: "/Untitled.jpeg",
-    rate: 3,
-    title: "lord of the rings",
-
-  },
-  { url: "/ems.jpeg", rate: 4, title: "kingdom of heaven" },
-  { url: "/dunkirk.jpeg", rate: 2, title: "dunkirk" },
-  { url: "/allquite.jpeg", rate: 1, title: "all quite on the westren front" },
-
-
-
-]
-
-
-
-
+import { db } from "./data/db"
 
 export default function CarouselDemo() {
-  const [name, setName] = useState<string>();
+  const [name, setName] = useState<string>("lord of the rings");
   const [rate, setRate] = useState<number>(0);
-  function found(): void {
 
-    setMov(db);
-    setMov(db.filter(p => (p.title == name)))
-    setMov(db.filter(p => (p.rate >= rate)))
-
-  }
-
-
-  function ButtonOutline() {
-    return <Button variant="outline" onClick={() => found()} type="button">filter</Button>
-  }
-  const [mov, setMov] = useState([
-    {
-      url: "/Untitled.jpeg",
-      rate: 3,
-      title: "lord of the rings",
-
-    },
-    { url: "/ems.jpeg", rate: 4, title: "kingdom of heaven" },
-    { url: "/dunkirk.jpeg", rate: 2, title: "dunkirk" },
-    { url: "/allquite.jpeg", rate: 1, title: "all quite on the westren front" },
-
-
-
-  ])
-
+  const filteredMovies = db.filter(
+    (p) =>
+      (name.trim() === "" || p.title.toLowerCase().includes(name.toLowerCase())) &&
+      p.rate >= rate
+  );
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <Carousel className="w-full max-w-xs">
         <CarouselContent>
-          {mov.map((p, index) => (
+          {filteredMovies.map((p, index) => (
             <CarouselItem key={index}>
               <div className="p-1">
                 <Card>
@@ -80,10 +38,8 @@ export default function CarouselDemo() {
         <CarouselNext />
       </Carousel>
       <form className="flex flex-col mt-2">
-        <input value={rate} onChange={(e) => setRate(Number(e.target.value))} placeholder="rate" className="text-center mt-1 mb-1" type="text" />
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="name" className="text-center mt-1 mb-1" type="text" />
-
-        <ButtonOutline />
+        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="search by name" className="mb-2 px-2 py-1 border border-gray-300 rounded" />
+        <input value={rate} onChange={(e) => setRate(Number(e.target.value))} placeholder="search by rate" className="mb-2 px-2 py-1 border border-gray-300 rounded" type="number" />
       </form>
     </div>
   )
