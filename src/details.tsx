@@ -3,9 +3,6 @@ import { db } from "./data/db"
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import type { movie } from "./types/movie";
-//  import Image from "next/image"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
-import * as React from "react"
 import { Button } from "@/components/ui/button"
 import {
     Accordion,
